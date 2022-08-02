@@ -1,5 +1,6 @@
 package dev.matthe815.staminamod.capabilities.stamina;
 
+import dev.matthe815.staminamod.config.ConfigHolder;
 import dev.matthe815.staminamod.networking.StaminaUpdatePacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -85,11 +86,11 @@ public class StaminaCapability implements IStamina
 		// Reduce stamina while running!
 		if (player.isSprinting() && !player.isCreative())
 		{
-			if (!TryAction(new Stamina().Set(0.33f))) // If running fails to occur, cancel running.
+			if (!TryAction(new Stamina().Set(ConfigHolder.COMMON.runStaminaConsumption.get()))) // If running fails to occur, cancel running.
 			{
+
 				player.setSprinting(false);
 			}
-			
 			return; // Halt stamina regeneration process if running.
 		}
 

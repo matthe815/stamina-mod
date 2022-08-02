@@ -17,6 +17,7 @@ import net.minecraft.util.ResourceLocation;
 
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
+import org.lwjgl.opengl.GL11;
 
 public class UIHandler
 {
@@ -66,8 +67,32 @@ public class UIHandler
 
         disappearTicks++;
 
+        draw_circle(1, 1, 1f);
+
         if (disappearTicks<150)
             drawStamina(stamina, minecraft, left-15, top, 1);
+    }
+
+    void draw_circle(float x, float y, float radius) {
+        GL11.glMatrixMode(GL11.GL_MODELVIEW);
+        GL11.glPushMatrix();
+        GL11.glLoadIdentity();
+        GL11.glTranslatef(x, y, 0.0f);
+        int circle_points = 100;
+        float angle = 2.0f * 3.1416f / circle_points;
+
+        // this code (mostly) copied from question:
+        GL11.glBegin(GL11.GL_POLYGON);
+        double angle1=0.0;
+        GL11.glVertex2d(radius * Math.cos(0.0) , radius * Math.sin(0.0));
+        int i;
+        for (i=0; i<circle_points; i++)
+        {
+            GL11.glVertex2d(radius * Math.cos(angle1), radius *Math.sin(angle1));
+            angle1 += angle;
+        }
+        GL11.glEnd();
+        GL11.glPopMatrix();
     }
 
     public void drawStamina (IStamina stamina, Minecraft mc, int left, int top, float alpha)

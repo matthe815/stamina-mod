@@ -4,6 +4,7 @@ import dev.matthe815.staminamod.capabilities.stamina.IStamina;
 import dev.matthe815.staminamod.capabilities.stamina.StaminaCapability;
 import dev.matthe815.staminamod.capabilities.stamina.StaminaProvider;
 import dev.matthe815.staminamod.capabilities.stamina.StaminaStorage;
+import dev.matthe815.staminamod.config.ConfigHolder;
 import dev.matthe815.staminamod.networking.StaminaUpdatePacket;
 import dev.matthe815.staminamod.ui.UIHandler;
 import net.minecraft.entity.Entity;
@@ -12,7 +13,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.NetworkRegistry;
@@ -39,6 +42,7 @@ public class Stamina {
     public Stamina() {
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ConfigHolder.COMMON_SPEC);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);

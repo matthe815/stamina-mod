@@ -37,6 +37,7 @@ public class StaminaUpdatePacket {
 			  IStamina stamina = Minecraft.getInstance().player.getCapability(StaminaProvider.STAMINA, null).resolve().get();
 
 			  stamina.Set(new Stamina().Set(message.stamina));
+			  ctx.get().setPacketHandled(true);
 		  }
 	  }
 }
